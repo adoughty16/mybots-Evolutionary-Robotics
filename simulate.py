@@ -3,9 +3,11 @@ import time
 
 physicsClient = p.connect(p.GUI)
 
+p.loadSDF("box.sdf")
+
 for x in range(1000):
 	p.stepSimulation()
-	sleep(1/60)
+	time.sleep(1/60)
 	print(x)
 
 p.disconnect()
