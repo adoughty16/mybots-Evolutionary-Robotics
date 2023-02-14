@@ -16,6 +16,7 @@ FL_PHASEOFFSET = 20
 
 random.seed(time.time())
 physicsClient = p.connect(p.GUI)
+p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 
