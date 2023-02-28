@@ -18,15 +18,15 @@ class MOTOR():
          if (self.jointName == b'BackLeg_Torso'):
             self.frequency = c.BL_FREQUENCY*2
 
-    def Set_Value(self, timeStep):
+    def Set_Value(self, desiredAngle):
 
-        self.motorValues[timeStep] = self.amplitude * (numpy.sin(self.frequency * timeStep + self.offset))
+        desiredAngle = self.amplitude * (numpy.sin(self.frequency * desiredAngle + self.offset))
 
         pyrosim.Set_Motor_For_Joint(
             bodyIndex = self.robotId,
             jointName = self.jointName,
             controlMode = p.POSITION_CONTROL,
-            targetPosition = self.motorValues[timeStep],
+            targetPosition = desiredAngle,
             maxForce = 50)
 
     def Save_Values(self):
