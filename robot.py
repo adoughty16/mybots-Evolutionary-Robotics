@@ -38,11 +38,6 @@ class ROBOT():
                 byteStringName = jointName.encode("UTF-8")
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[byteStringName].Set_Value(desiredAngle)
-                print(neuronName + " : " + jointName + " : " + str(desiredAngle))
-
-
-        #for i in self.motors:
-            #self.motors[i].Set_Value(timeStep)
         
     def Think(self):
         self.nn.Update()
