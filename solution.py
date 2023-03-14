@@ -11,13 +11,18 @@ class SOLUTION():
 		self.weights = (self.weights * 2) - 1
 
 
-	def Evaluate(self):
+	def Evaluate(self, choice):
 		self.Create_World()
 		self.Create_Body()
 		self.Create_Brain()
+		os.system("python simulate.py " + choice)
 
-		os.system("python simulate.py")
+		fileIn = open("fitness.txt", "r")
 
+		self.fitness = float(fileIn.readline())
+
+	def Mutate(self):
+		self.weights[random.randint(0,2), random.randint(0,1)] = (random.random() * 2) - 1
 		
 	def Create_World(self):
 		pyrosim.Start_SDF("world.sdf")

@@ -10,8 +10,12 @@ import random
 import constants as c
 
 class SIMULATION():
-    def __init__(self):
-        self.csClient = p.connect(p.GUI)
+    def __init__(self, choice):
+        if (choice == "DIRECT"):
+            self.csClient = p.connect(p.DIRECT)
+        elif (choice == "GUI"):
+            self.csClient = p.connect(p.GUI)
+
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
@@ -20,15 +24,19 @@ class SIMULATION():
         self.robot = ROBOT()
     
     def Run(self):           
-        for i in range(1000):
+        for i in range(500):
             p.stepSimulation()
             self.robot.Sense(i)
+            self.robot.Think()
             self.robot.Act(i)
             
             time.sleep(1/60)
 
     def __del__(self):
         p.disconnect()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
     
 
 
