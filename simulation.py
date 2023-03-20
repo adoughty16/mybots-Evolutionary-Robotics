@@ -11,6 +11,9 @@ import constants as c
 
 class SIMULATION():
     def __init__(self, choice):
+
+        self.directOrGUI = choice;
+
         if (choice == "DIRECT"):
             self.csClient = p.connect(p.DIRECT)
         elif (choice == "GUI"):
@@ -30,7 +33,8 @@ class SIMULATION():
             self.robot.Think()
             self.robot.Act(i)
             
-            time.sleep(1/60)
+            if (self.directOrGUI == "GUI"):
+               time.sleep(1/60)
 
     def __del__(self):
         p.disconnect()
