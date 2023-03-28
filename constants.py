@@ -11,3 +11,8 @@ FL_PHASEOFFSET = 20
 NUMBER_OF_GENERATIONS = 10
 
 POPULATION_SIZE = 10
+
+numSensorNeurons = 9
+numMotorNeurons = 8
+
+motorJointRange = 0.2
