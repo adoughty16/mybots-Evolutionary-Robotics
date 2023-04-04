@@ -11,22 +11,37 @@ class SOLUTION():
 
 		self.myID = ID
 
-		self.weights = np.matrix([[np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-							  	  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
-								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],])
-		self.weights = (self.weights * 2) - 1
+		if c.numHiddenNeurons == 3:
+			self.sensorsToHidden = np.matrix([[np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand()]])
+			self.hiddenToMotors = np.matrix([[np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											 [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											 [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()]])		
+		elif c.numHiddenNeurons == 5:
+			self.sensorsToHidden = np.matrix([[np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()]])
+			self.hiddenToMotors = np.matrix([[np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()],
+											  [np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand(),np.random.rand()]])
+
+		self.sensorsToHidden = (self.sensorsToHidden * 2) - 1
+		self.hiddenToMotors = (self.hiddenToMotors * 2) - 1
 
 
 	def Start_Simulation(self, choice):
 		self.Create_World()
 		self.Create_Body()
-		self.Create_Brain()
+
+		if (c.numHiddenNeurons == 3):
+			self.Create_Brain()
+		if (c.numHiddenNeurons == 5):
+			self.Create_Brain2()
 		os.system("start /B python simulate.py " + choice + " " + str(self.myID))
 
 	def Wait_For_Simulation_To_End(self):
@@ -57,7 +72,8 @@ class SOLUTION():
 		pass
 
 	def Mutate(self):
-		self.weights[random.randint(0,c.numSensorNeurons - 1), random.randint(0,c.numMotorNeurons - 1)] = (random.random() * 2) - 1
+		self.sensorsToHidden[random.randint(0,c.numSensorNeurons - 1), random.randint(0,c.numHiddenNeurons - 1)] = (random.random() * 2) - 1
+		self.hiddenToMotors[random.randint(0,c.numHiddenNeurons - 1), random.randint(0,c.numMotorNeurons - 1)] = (random.random() * 2) - 1
 		
 	def Create_World(self):
 		pyrosim.Start_SDF("world.sdf")
@@ -94,37 +110,80 @@ class SOLUTION():
 		pyrosim.End()
 
 	def Create_Brain(self):
-
 		fileName = "brain" + str(self.myID) + ".nndf"
 
 		pyrosim.Start_NeuralNetwork(fileName)
-	
-		pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "BackLeg")
-		pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "FrontLeg")
-		pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "Torso")
-		pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
-		pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg")
 
-		pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "BackShin")
-		pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "FrontShin")
-		pyrosim.Send_Sensor_Neuron(name = 7 , linkName = "LeftShin")
-		pyrosim.Send_Sensor_Neuron(name = 8 , linkName = "RightShin")
+		pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "BackShin")
+		pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "FrontShin")
+		pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LeftShin")
+		pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "RightShin")
+
+		pyrosim.Send_Hidden_Neuron( name = 4 )
+		pyrosim.Send_Hidden_Neuron( name = 5 )
+		pyrosim.Send_Hidden_Neuron( name = 6 )
+
+		pyrosim.Send_Motor_Neuron(name = 7, jointName = "Torso_BackLeg")
+		pyrosim.Send_Motor_Neuron(name = 8, jointName = "Torso_FrontLeg")
+		pyrosim.Send_Motor_Neuron(name = 9, jointName = "Torso_LeftLeg")
+		pyrosim.Send_Motor_Neuron(name = 10, jointName = "Torso_RightLeg")
+	
+		pyrosim.Send_Motor_Neuron(name = 11, jointName = "BackLeg_BackShin")
+		pyrosim.Send_Motor_Neuron(name = 12, jointName = "FrontLeg_FrontShin")
+		pyrosim.Send_Motor_Neuron(name = 13, jointName = "LeftLeg_LeftShin")
+		pyrosim.Send_Motor_Neuron(name = 14, jointName = "RightLeg_RightShin")
+
+		for currentRow in range (c.numSensorNeurons):
+			for currentColumn in range (c.numHiddenNeurons):
+				pyrosim.Send_Synapse( sourceNeuronName = currentRow,
+							targetNeuronName = currentColumn + c.numSensorNeurons,
+							weight = self.sensorsToHidden[currentRow, currentColumn])
+
+		for currentRow in range (c.numHiddenNeurons):
+			for currentColumn in range (c.numMotorNeurons):
+				pyrosim.Send_Synapse( sourceNeuronName = currentRow + c.numSensorNeurons,
+							targetNeuronName = currentColumn + c.numHiddenNeurons + c.numSensorNeurons,
+							weight = self.hiddenToMotors[currentRow, currentColumn])
+
+		pyrosim.End()
+
+	def Create_Brain2(self):
+		fileName = "brain" + str(self.myID) + ".nndf"
+
+		pyrosim.Start_NeuralNetwork(fileName)
+
+		pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "BackShin")
+		pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "FrontShin")
+		pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LeftShin")
+		pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "RightShin")
+
+		pyrosim.Send_Hidden_Neuron( name = 4 )
+		pyrosim.Send_Hidden_Neuron( name = 5 )
+		pyrosim.Send_Hidden_Neuron( name = 6 )
+		pyrosim.Send_Hidden_Neuron( name = 7 )
+		pyrosim.Send_Hidden_Neuron( name = 8 )
 
 		pyrosim.Send_Motor_Neuron(name = 9, jointName = "Torso_BackLeg")
 		pyrosim.Send_Motor_Neuron(name = 10, jointName = "Torso_FrontLeg")
 		pyrosim.Send_Motor_Neuron(name = 11, jointName = "Torso_LeftLeg")
 		pyrosim.Send_Motor_Neuron(name = 12, jointName = "Torso_RightLeg")
-	
+
 		pyrosim.Send_Motor_Neuron(name = 13, jointName = "BackLeg_BackShin")
 		pyrosim.Send_Motor_Neuron(name = 14, jointName = "FrontLeg_FrontShin")
 		pyrosim.Send_Motor_Neuron(name = 15, jointName = "LeftLeg_LeftShin")
 		pyrosim.Send_Motor_Neuron(name = 16, jointName = "RightLeg_RightShin")
 
 		for currentRow in range (c.numSensorNeurons):
-			for currentColumn in range (c.numMotorNeurons):
+			for currentColumn in range (c.numHiddenNeurons):
 				pyrosim.Send_Synapse( sourceNeuronName = currentRow,
 							targetNeuronName = currentColumn + c.numSensorNeurons,
-							weight = self.weights[currentRow, currentColumn])
+							weight = self.sensorsToHidden[currentRow, currentColumn])
+
+		for currentRow in range (c.numHiddenNeurons):
+			for currentColumn in range (c.numMotorNeurons):
+				pyrosim.Send_Synapse( sourceNeuronName = currentRow + c.numSensorNeurons,
+							targetNeuronName = currentColumn + c.numHiddenNeurons + c.numSensorNeurons,
+							weight = self.hiddenToMotors[currentRow, currentColumn])
 
 		pyrosim.End()
 
