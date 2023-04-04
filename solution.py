@@ -11,15 +11,15 @@ class SOLUTION():
 
 		self.myID = ID
 
-		self.weights = np.matrix([[np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-                                  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-								  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-								  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-								  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-								  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-								  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-								  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()],
-                                  [np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand(),np.random.rand(), np.random.rand(), np.random.rand(), np.random.rand()]])
+		self.weights = np.matrix([[np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+							  	  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],
+								  [np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1,np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1, np.random.rand()*2-1],])
 		self.weights = (self.weights * 2) - 1
 
 
