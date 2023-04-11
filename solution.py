@@ -35,8 +35,8 @@ class SOLUTION():
 
 
 	def Start_Simulation(self, choice):
-		self.Create_World()
-		self.Create_Body()
+		#self.Create_World()
+		#self.Create_Body()
 
 		if (c.numHiddenNeurons == 3):
 			self.Create_Brain()
@@ -72,15 +72,26 @@ class SOLUTION():
 		pass
 
 	def Mutate(self):
-		self.sensorsToHidden[random.randint(0,c.numSensorNeurons - 1), random.randint(0,c.numHiddenNeurons - 1)] = (random.random() * 2) - 1
-		self.hiddenToMotors[random.randint(0,c.numHiddenNeurons - 1), random.randint(0,c.numMotorNeurons - 1)] = (random.random() * 2) - 1
+		if (bool(random.getrandbits(1))):
+			self.sensorsToHidden[random.randint(0,c.numSensorNeurons - 1), random.randint(0,c.numHiddenNeurons - 1)] = (random.random() * 2) - 1
+		else:
+			self.hiddenToMotors[random.randint(0,c.numHiddenNeurons - 1), random.randint(0,c.numMotorNeurons - 1)] = (random.random() * 2) - 1
 		
-	def Create_World(self):
+	def Create_World():
 		pyrosim.Start_SDF("world.sdf")
-		pyrosim.Send_Cube(name="Box", pos=[-3,3,0.5] , size=[1,1,1])
+		pyrosim.Send_Cube(name="Box", pos=[-10,0,0.1] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-10.5,0,0.3] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-11,0,0.5] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-11.5,0,0.7] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-12,0,0.9] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-12.5,0,1.1] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-13,0,1.3] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-13.5,0,1.5] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-14,0,1.7] , size=[15,15,0.2])
+		pyrosim.Send_Cube(name="Box", pos=[-14.5,0,1.9] , size=[15,15,0.2])
 		pyrosim.End()
 
-	def Create_Body(self):
+	def Create_Body():
 		pyrosim.Start_URDF("body.urdf")
 	
 		pyrosim.Send_Cube(name="Torso", pos=[0,0,1] , size=[1,1,1])
@@ -101,6 +112,35 @@ class SOLUTION():
 		pyrosim.Send_Cube(name="LeftShin", pos=[0,0,-0.5] , size=[0.2,0.2,1])
 
 		pyrosim.Send_Joint(name="Torso_RightLeg", parent = "Torso", child = "RightLeg",type = "revolute", position = [0.5,0,1], jointAxis = "0 1 0")
+		pyrosim.Send_Cube(name="RightLeg", pos=[0.5,0,0] , size=[1,0.2,0.2])
+		pyrosim.Send_Joint(name="RightLeg_RightShin", parent = "RightLeg", child = "RightShin",type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
+		pyrosim.Send_Cube(name="RightShin", pos=[0,0,-0.5] , size=[0.2,0.2,1])
+
+
+
+		pyrosim.End()
+
+	def Create_Body2(self):
+		pyrosim.Start_URDF("body.urdf")
+	
+		pyrosim.Send_Cube(name="Torso", pos=[0,0,1.25] , size=[1,1,0.5])
+
+		pyrosim.Send_Joint(name="Torso_BackLeg", parent = "Torso", child = "BackLeg",type = "revolute", position = [-0.5,0.375,1.0625], jointAxis = "0 1 0") #Front Left
+		pyrosim.Send_Cube(name="BackLeg", pos=[-0.5,0,0] , size=[1,0.2,0.2])
+		pyrosim.Send_Joint(name="BackLeg_BackShin", parent = "BackLeg", child = "BackShin",type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+		pyrosim.Send_Cube(name="BackShin", pos=[0,0,-0.5] , size=[0.2,0.2,1])
+
+		pyrosim.Send_Joint(name="Torso_FrontLeg", parent = "Torso", child = "FrontLeg",type = "revolute", position = [-0.5,-0.375,1.0625], jointAxis = "0 1 0") #Front Right
+		pyrosim.Send_Cube(name="FrontLeg", pos=[-0.5,0,0] , size=[1,0.2,0.2])
+		pyrosim.Send_Joint(name="FrontLeg_FrontShin", parent = "FrontLeg", child = "FrontShin",type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
+		pyrosim.Send_Cube(name="FrontShin", pos=[0,0,-0.5] , size=[0.2,0.2,1])
+
+		pyrosim.Send_Joint(name="Torso_LeftLeg", parent = "Torso", child = "LeftLeg",type = "revolute", position = [0.5,0.375,1.0625], jointAxis = "0 1 0") #Back Left
+		pyrosim.Send_Cube(name="LeftLeg", pos=[0.5,0,0] , size=[1,0.2,0.2])
+		pyrosim.Send_Joint(name="LeftLeg_LeftShin", parent = "LeftLeg", child = "LeftShin",type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
+		pyrosim.Send_Cube(name="LeftShin", pos=[0,0,-0.5] , size=[0.2,0.2,1])
+
+		pyrosim.Send_Joint(name="Torso_RightLeg", parent = "Torso", child = "RightLeg",type = "revolute", position = [0.5,-0.375,1.0625], jointAxis = "0 1 0") #Back Right
 		pyrosim.Send_Cube(name="RightLeg", pos=[0.5,0,0] , size=[1,0.2,0.2])
 		pyrosim.Send_Joint(name="RightLeg_RightShin", parent = "RightLeg", child = "RightShin",type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
 		pyrosim.Send_Cube(name="RightShin", pos=[0,0,-0.5] , size=[0.2,0.2,1])

@@ -10,10 +10,10 @@ FL_PHASEOFFSET = 20
 
 NUMBER_OF_GENERATIONS = 10
 
-POPULATION_SIZE = 10
+POPULATION_SIZE = 20
 
 numSensorNeurons = 4
 numMotorNeurons = 8
 numHiddenNeurons = 5
 
-motorJointRange = 0.2
+motorJointRange = 0.5
