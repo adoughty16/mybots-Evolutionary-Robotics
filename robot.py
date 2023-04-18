@@ -5,6 +5,7 @@ from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 import constants as c
+import math
 
 class ROBOT():
 
@@ -54,15 +55,44 @@ class ROBOT():
         #self.nn.Print()
 
     def Get_Fitness(self):
-        self.basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        self.basePosition = self.basePositionAndOrientation[0]
-        self.xPosition = self.basePosition[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
+        zPosition = basePosition[2]
+
+        if (c.bodyNumber == 1):
+            stateOfLinkZero = p.getLinkState(self.robotId,5)
+            linkPosition = stateOfLinkZero[0]
+            zPos1 = linkPosition[2]
+
+            stateOfLinkZero = p.getLinkState(self.robotId,7)
+            linkPosition = stateOfLinkZero[0]
+            zPos2 = linkPosition[2]
+
+        else:
+            stateOfLinkZero = p.getLinkState(self.robotId,1)
+            linkPosition = stateOfLinkZero[0]
+            zPos1 = linkPosition[2]
+
+            stateOfLinkZero = p.getLinkState(self.robotId,7)
+            linkPosition = stateOfLinkZero[0]
+            zPos2 = linkPosition[2]
+
+        diffPos = zPos1 - zPos2
+
 
         tmpFile = "tmp" + str(self.solutionID) + ".txt"
         fitnessFile = "fitness" + str(self.solutionID) + ".txt"
 
         fileOut = open("tmp"+str(self.solutionID)+".txt", "w")
-        fileOut.write(str(self.xPosition))
+
+       # fitness = xPosition + diffPos/2 #this rewards the robot for being at an angle
+        #fitness = xPosition + zPosition
+        fitness = xPosition
+        #fitness = (math.sqrt(pow(xPosition,2) + pow(zPosition,2)))# This totally fails because it just rewards distance from the origin in any direction... Woops
+
+
+        fileOut.write(str(fitness))
         fileOut.close()
         os.system("rename " + tmpFile + " " + fitnessFile)
 

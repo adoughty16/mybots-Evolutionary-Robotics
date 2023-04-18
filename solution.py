@@ -120,7 +120,7 @@ class SOLUTION():
 
 		pyrosim.End()
 
-	def Create_Body2(self):
+	def Create_Body2():
 		pyrosim.Start_URDF("body.urdf")
 	
 		pyrosim.Send_Cube(name="Torso", pos=[0,0,1.25] , size=[1,1,0.5])
