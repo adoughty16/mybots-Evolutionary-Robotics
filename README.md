@@ -8,4 +8,4 @@ We used evolutionary algorithms and fitness functions to evolve the robots' neur
 tasks in the physics engine.
 
 This code is modular. With it you can build a variety of different robots in the physics engine and these can be paired with a similar variety
-of neural network architectures and fitness functions that can be tested in any environment that you feel like building.
+of neural network architectures and fitness functions that can be tested in any environment that you might feel like building in the engine.
